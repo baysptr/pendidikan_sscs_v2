@@ -22,6 +22,7 @@ class Admin extends CI_Controller {
 
     public function index() {
         $this->Auth_m->check_login();
+        $id_level = $this->session->userdata('id_level');
         
         $this->load->view('index');
     }
