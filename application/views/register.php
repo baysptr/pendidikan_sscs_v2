@@ -40,6 +40,10 @@
                         <span class="glyphicon glyphicon-user form-control-feedback"></span>
                     </div>
                     <div class="form-group has-feedback">
+                        <input type="email" name="email" id="email" class="form-control" placeholder="e-Mail" autofocus>
+                        <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                    </div>
+                    <div class="form-group has-feedback">
                         <input type="text" name="user" id="user" class="form-control" placeholder="Username">
                         <span class="glyphicon glyphicon-triangle-top form-control-feedback"></span>
                     </div>

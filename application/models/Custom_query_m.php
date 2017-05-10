@@ -35,4 +35,25 @@ class Custom_query_m extends CI_Model{
                 ->where("detail_level.id_level", $id);
         return $this->db->get()->result_array();
     }
+    
+    public function custom_link_index($id_level){
+        $this->db
+                ->select("menu.menu, menu.link")
+                ->from("detail_level")
+                ->join("menu", "menu.id = detail_level.id_menu")
+                ->where("detail_level.id_level", $id_level);
+        
+        return $this->db->get()->result_array();
+    }
+    
+    public function custom_detail_modul($id) {
+        $this->db
+                ->select("*")
+                ->from("detail_modul")
+                ->where("id_modul", $id);
+        
+        return $this->db->get()->result_array();
+    }
+    
+    
 }

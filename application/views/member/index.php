@@ -61,10 +61,10 @@
                                             <a href="#" class="btn btn-default btn-flat">Profile</a>
                                         </div>
                                         <div class="pull-right">
-                                             <a href="javascript:;" onclick="javascript: 
-                                               if(confirm('Apa anda yakin !!!') === true) {
-                                                   window.location = '<?= site_url() ?>/welcome/log_out';
-                                               }" class="btn btn-default btn-flat">Sign out</a>
+                                            <a href="javascript:;" onclick="javascript:
+                                                            if (confirm('Apa anda yakin !!!') === true) {
+                                                        window.location = '<?= site_url() ?>/welcome/log_out';
+                                                    }" class="btn btn-default btn-flat">Sign out</a>
                                         </div>
                                     </li>
                                 </ul>
@@ -107,43 +107,22 @@
                         <li>
                             <a href="javascript:;">
                                 <i class="fa fa-th"></i> <span>Dashboard</span>
-                                <span class="pull-right-container">
-                                    <small class="label pull-right bg-green">Hot</small>
-                                </span>
                             </a>
                         </li>
-                        <li>
-                            <a href="<?= site_url() ?>/admin/member">
-                                <i class="fa fa-th"></i> <span>Member</span>
-                                <span class="pull-right-container">
-                                    <small class="label pull-right bg-green">Hot</small>
-                                </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="<?= site_url() ?>/admin/level">
-                                <i class="fa fa-th"></i> <span>Level</span>
-                                <span class="pull-right-container">
-                                    <small class="label pull-right bg-green">Hot</small>
-                                </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="<?= site_url() ?>/admin/modul">
-                                <i class="fa fa-th"></i> <span>Modul</span>
-                                <span class="pull-right-container">
-                                    <small class="label pull-right bg-green">Hot</small>
-                                </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="<?= site_url() ?>/admin/wilayah_ajar">
-                                <i class="fa fa-th"></i> <span>Wilayah Ajar</span>
-                                <span class="pull-right-container">
-                                    <small class="label pull-right bg-green">Hot</small>
-                                </span>
-                            </a>
-                        </li>
+                        <?php foreach ($link_menu as $link) { ?>
+                            <li>
+                                <a href="<?= site_url($link['link']) ?>">
+                                    <i class="fa fa-th"></i> <span><?= $link['menu'] ?></span>
+                                </a>
+                            </li>
+                        <?php } ?>
+                        <?php if ($this->session->userdata('koordinator') == 1) { ?>
+                            <li>
+                                <a href="<?= site_url() ?>/member/susun_jadwal">
+                                    <i class="fa fa-th"></i> <span>Susun Jadwal</span>
+                                </a>
+                            </li>
+                        <?php } ?>
                     </ul>
                 </section>
                 <!-- /.sidebar -->

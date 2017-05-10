@@ -41,19 +41,25 @@ class Welcome extends CI_Controller {
 
         $result = $this->Auth_m->login($user, $pass)->row();
 
-        if ($result > 0) {
+        if (isset($result)) {
             $data = [
                 "id_account" => $result->id_account,
                 "nama" => $result->nama,
                 "username" => $result->username,
                 "id_level" => $result->id_level,
+                "koordinator" => $result->koordinator,
+                "wilayah" => $result->wilayah,
                 "level" => $result->level,
-                "login" => true 
+                "login" => true
             ];
 
             $this->session->set_userdata($data);
-            
-            redirect(site_url() . "/admin/index");
+
+            if ($result->level == "Admin") {
+                redirect(site_url() . "/admin/index");
+            } else {
+                redirect(site_url() . "/member/index");
+            }
         } else {
             echo "<script>alert('Sorry, User dan pass anda tidak diketahui !!!');window.location = '" . base_url() . "'</script>";
         }
@@ -62,6 +68,7 @@ class Welcome extends CI_Controller {
     public function do_register() {
         $id = $this->Query_sekunder_m->getId('ACCOUNTS', 'account');
         $nama = $this->input->post("nama");
+        $email = $this->input->post("email");
         $user = $this->input->post("user");
         $pass = md5($this->input->post("pass"));
         $level = $this->input->post("level");
@@ -74,6 +81,7 @@ class Welcome extends CI_Controller {
             "nama" => $nama,
             "username" => $user,
             "password" => $pass,
+            "email" => $email,
             "level" => $level,
             "wilayah" => $wilayah,
             "koordinator" => $koordinator,
@@ -87,6 +95,12 @@ class Welcome extends CI_Controller {
         } else {
             echo json_encode("FALSE");
         }
+    }
+    
+    public function log_out() {
+        $this->session->sess_destroy();
+        
+        redirect(base_url());
     }
 
 }

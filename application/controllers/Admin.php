@@ -18,13 +18,20 @@ class Admin extends CI_Controller {
         $this->load->model('Query_sekunder_m');
         $this->load->model('Custom_query_m');
         $this->load->model('Auth_m');
+        $this->load->model('Layout_m');
+        
+        $this->Auth_m->check_login();
     }
 
     public function index() {
-        $this->Auth_m->check_login();
         $id_level = $this->session->userdata('id_level');
         
-        $this->load->view('index');
+        $data['link_menu'] = $this->Custom_query_m->custom_link_index($id_level);
+        
+        $data['meta'] = $this->Layout_m->meta();
+        $data['javascript'] = $this->Layout_m->javascript();
+        
+        $this->load->view('index', $data);
     }
 
     public function level() {

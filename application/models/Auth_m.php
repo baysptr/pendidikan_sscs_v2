@@ -25,7 +25,7 @@ class Auth_m extends CI_Model{
     
     public function login($user, $pass){
         $this->db
-                ->select("account.id as id_account, account.nama, account.username, account.password, level.id as id_level, level.level")
+                ->select("account.id as id_account, account.nama, account.username, account.password, account.koordinator, account.wilayah, level.id as id_level, level.level")
                 ->from("account")
                 ->join("level", "level.id=account.level")
                 ->where("account.username", $user)

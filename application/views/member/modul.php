@@ -61,10 +61,10 @@
                                             <a href="#" class="btn btn-default btn-flat">Profile</a>
                                         </div>
                                         <div class="pull-right">
-                                             <a href="javascript:;" onclick="javascript: 
-                                               if(confirm('Apa anda yakin !!!') === true) {
-                                                   window.location = '<?= site_url() ?>/welcome/log_out';
-                                               }" class="btn btn-default btn-flat">Sign out</a>
+                                            <a href="javascript:;" onclick="javascript:
+                                                            if (confirm('Apa anda yakin !!!') === true) {
+                                                        window.location = '<?= site_url() ?>/welcome/log_out';
+                                                    }" class="btn btn-default btn-flat">Sign out</a>
                                         </div>
                                     </li>
                                 </ul>
@@ -105,45 +105,24 @@
                     <ul class="sidebar-menu">
                         <li class="header">MAIN NAVIGATION</li>
                         <li>
-                            <a href="javascript:;">
+                            <a href="<?= site_url("member") ?>">
                                 <i class="fa fa-th"></i> <span>Dashboard</span>
-                                <span class="pull-right-container">
-                                    <small class="label pull-right bg-green">Hot</small>
-                                </span>
                             </a>
                         </li>
-                        <li>
-                            <a href="<?= site_url() ?>/admin/member">
-                                <i class="fa fa-th"></i> <span>Member</span>
-                                <span class="pull-right-container">
-                                    <small class="label pull-right bg-green">Hot</small>
-                                </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="<?= site_url() ?>/admin/level">
-                                <i class="fa fa-th"></i> <span>Level</span>
-                                <span class="pull-right-container">
-                                    <small class="label pull-right bg-green">Hot</small>
-                                </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="<?= site_url() ?>/admin/modul">
-                                <i class="fa fa-th"></i> <span>Modul</span>
-                                <span class="pull-right-container">
-                                    <small class="label pull-right bg-green">Hot</small>
-                                </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="<?= site_url() ?>/admin/wilayah_ajar">
-                                <i class="fa fa-th"></i> <span>Wilayah Ajar</span>
-                                <span class="pull-right-container">
-                                    <small class="label pull-right bg-green">Hot</small>
-                                </span>
-                            </a>
-                        </li>
+                        <?php foreach ($link_menu as $link) { ?>
+                            <li>
+                                <a href="<?= site_url($link['link']) ?>">
+                                    <i class="fa fa-th"></i> <span><?= $link['menu'] ?></span>
+                                </a>
+                            </li>
+                        <?php } ?>
+                        <?php if ($this->session->userdata('koordinator') == 1) { ?>
+                            <li>
+                                <a href="<?= site_url() ?>/member/susun_jadwal">
+                                    <i class="fa fa-th"></i> <span>Susun Jadwal</span>
+                                </a>
+                            </li>
+                        <?php } ?>
                     </ul>
                 </section>
                 <!-- /.sidebar -->
@@ -156,13 +135,11 @@
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        Blank page
-                        <small>it all starts here</small>
+                        <?= $title ?>
                     </h1>
                     <ol class="breadcrumb">
-                        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li><a href="#">Examples</a></li>
-                        <li class="active">Blank page</li>
+                        <li><a href="<?= site_url("member") ?>"><i class="fa fa-dashboard"></i> Home</a></li>
+                        <li><a href="javascript:;"><?= $title ?></a></li>
                     </ol>
                 </section>
 
@@ -182,7 +159,32 @@
                             </div>
                         </div>
                         <div class="box-body">
-                            <h2>Content</h2>
+                            <table class="table table-condensed table-hover">
+                                <thead>
+                                    <tr>
+                                        <td><b>Nama Modul</b></td>
+                                        <td><b>Deskripsi Modul</b></td>
+                                        <td><b>File Modul</b></td>
+                                        <td align="center"><b>#</b></td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($data_modul as $modul) { ?>
+                                        <tr>
+                                            <td><?= $modul['nama_modul'] ?></td>
+                                            <td><?= $modul['deskripsi_modul'] ?></td>
+                                            <td>
+                                                <a href="<?= base_url() ?>resource/modul/<?= $modul['file_modul'] ?>" target="_blank">
+                                                    <img src="<?= base_url() ?>components/img/file.ico" width="35px" height="auto">
+                                                </a>
+                                            </td>
+                                            <td width="10%">
+                                                <a href="<?= site_url() ?>/member/parameter/<?= $modul['id'] ?>"><div class="btn btn-xs btn-block btn-primary"><span class="glyphicon glyphicon-share"></span> Show Parameter</div></a>
+                                            </td>
+                                        </tr>
+                                    <?php } ?>
+                                </tbody>
+                            </table>
                         </div>
                         <!-- /.box-body -->
                         <div class="box-footer">

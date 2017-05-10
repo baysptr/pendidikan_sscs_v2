@@ -61,10 +61,10 @@
                                             <a href="#" class="btn btn-default btn-flat">Profile</a>
                                         </div>
                                         <div class="pull-right">
-                                             <a href="javascript:;" onclick="javascript: 
-                                               if(confirm('Apa anda yakin !!!') === true) {
-                                                   window.location = '<?= site_url() ?>/welcome/log_out';
-                                               }" class="btn btn-default btn-flat">Sign out</a>
+                                            <a href="javascript:;" onclick="javascript:
+                                                            if (confirm('Apa anda yakin !!!') === true) {
+                                                        window.location = '<?= site_url() ?>/welcome/log_out';
+                                                    }" class="btn btn-default btn-flat">Sign out</a>
                                         </div>
                                     </li>
                                 </ul>
@@ -105,45 +105,24 @@
                     <ul class="sidebar-menu">
                         <li class="header">MAIN NAVIGATION</li>
                         <li>
-                            <a href="javascript:;">
+                            <a href="<?= site_url("member") ?>">
                                 <i class="fa fa-th"></i> <span>Dashboard</span>
-                                <span class="pull-right-container">
-                                    <small class="label pull-right bg-green">Hot</small>
-                                </span>
                             </a>
                         </li>
-                        <li>
-                            <a href="<?= site_url() ?>/admin/member">
-                                <i class="fa fa-th"></i> <span>Member</span>
-                                <span class="pull-right-container">
-                                    <small class="label pull-right bg-green">Hot</small>
-                                </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="<?= site_url() ?>/admin/level">
-                                <i class="fa fa-th"></i> <span>Level</span>
-                                <span class="pull-right-container">
-                                    <small class="label pull-right bg-green">Hot</small>
-                                </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="<?= site_url() ?>/admin/modul">
-                                <i class="fa fa-th"></i> <span>Modul</span>
-                                <span class="pull-right-container">
-                                    <small class="label pull-right bg-green">Hot</small>
-                                </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="<?= site_url() ?>/admin/wilayah_ajar">
-                                <i class="fa fa-th"></i> <span>Wilayah Ajar</span>
-                                <span class="pull-right-container">
-                                    <small class="label pull-right bg-green">Hot</small>
-                                </span>
-                            </a>
-                        </li>
+                        <?php foreach ($link_menu as $link) { ?>
+                            <li>
+                                <a href="<?= site_url($link['link']) ?>">
+                                    <i class="fa fa-th"></i> <span><?= $link['menu'] ?></span>
+                                </a>
+                            </li>
+                        <?php } ?>
+                        <?php if ($this->session->userdata('koordinator') == 1) { ?>
+                            <li>
+                                <a href="<?= site_url() ?>/member/susun_jadwal">
+                                    <i class="fa fa-th"></i> <span>Susun Jadwal</span>
+                                </a>
+                            </li>
+                        <?php } ?>
                     </ul>
                 </section>
                 <!-- /.sidebar -->
@@ -156,13 +135,12 @@
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        Blank page
-                        <small>it all starts here</small>
+                        <?= $title ?>
                     </h1>
                     <ol class="breadcrumb">
-                        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li><a href="#">Examples</a></li>
-                        <li class="active">Blank page</li>
+                        <li><a href="<?= site_url("member") ?>"><i class="fa fa-dashboard"></i> Home</a></li>
+                        <li><a href="<?= site_url("member/modul") ?>"><i class="fa fa-dashboard"></i> Modul</a></li>
+                        <li><a href="javascript:;"><?= $title ?></a></li>
                     </ol>
                 </section>
 
@@ -170,9 +148,9 @@
                 <section class="content">
 
                     <!-- Default box -->
-                    <div class="box">
+                    <div class="box box-primary">
                         <div class="box-header with-border">
-                            <h3 class="box-title">Title</h3>
+                            <h3 class="box-title"><?= $title ?></h3>
 
                             <div class="box-tools pull-right">
                                 <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
@@ -182,11 +160,27 @@
                             </div>
                         </div>
                         <div class="box-body">
-                            <h2>Content</h2>
+                            <table class="table table-condensed table-hover">
+                                <thead>
+                                    <tr>
+                                        <td><b>No</b></td>
+                                        <td><b>Parameter / Capaian</b></td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php $no = 1;
+                                    foreach ($data_parameter as $parameter) { ?>
+                                        <tr>
+                                            <td><?= $no++ ?></td>
+                                            <td><?= $parameter['parameter'] ?></td>
+                                        </tr>
+<?php } ?>
+                                </tbody>
+                            </table>
                         </div>
                         <!-- /.box-body -->
                         <div class="box-footer">
-                            Footer
+<?= $title ?>
                         </div>
                         <!-- /.box-footer-->
                     </div>
@@ -211,7 +205,7 @@
         </div>
         <!-- ./wrapper -->
 
-        <?= $javascript ?>
+<?= $javascript ?>
 
     </body>
 </html>
